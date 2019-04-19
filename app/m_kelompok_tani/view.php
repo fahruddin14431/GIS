@@ -26,7 +26,7 @@
                 <div class="card">
                     <div class="card-header">
                         <strong class="card-title">Kecamatan</strong>
-                        <a href="" class="btn btn-success"><i class="fa fa-plus"></i> Add</a>
+                        <a href="" class="btn btn-success"><i class="fa fa-plus"></i> Tambah</a>
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table-export" class="table table-striped table-bordered" >

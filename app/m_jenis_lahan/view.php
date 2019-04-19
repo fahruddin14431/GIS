@@ -26,7 +26,7 @@
                 <div class="card">
                     <div class="card-header">
                         <strong class="card-title">Jenis Lahan</strong>
-                        <a href="" class="btn btn-success"><i class="fa fa-plus"></i> Add</a>
+                        <a href="?p=add_jenis_lahan" class="btn btn-success"><i class="fa fa-plus"></i> Tambah</a>
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table-export" class="table table-striped table-bordered" >
@@ -34,26 +34,25 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Jenis Lahan</th>
+                                    <th>Luas</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php 
+                                $no = 1; 
+                                $result = $crud->get("SELECT * FROM tb_jenis_lahan");
+                                foreach ($result as $value): ?> 
                                 <tr>
-                                    <td>1.</td>
-                                    <td>Lahan Garapan</td>
+                                    <td><?= $no++ ?></td>
+                                    <td><?= $value['jenis_lahan'] ?></td>
+                                    <td><?= $value['luas_tanah'] ?></td>
                                     <td>
-                                        <a href="" class="btn btn-warning text-white"><i class="fa fa-pencil"></i> Edit</a>
-                                        <a href="" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                                        <a href="?p=edit_jenis_lahan&id_jenis_lahan=<?= $value['id_jenis_lahan']?>" class="btn btn-warning text-white"><i class="fa fa-pencil"></i> Ubah</a>
+                                        <a href="?p=delete_jenis_lahan&id_jenis_lahan=<?= $value['id_jenis_lahan']?>" onClick="return confirm('Data Akan Dihapus !')"  class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>2.</td>
-                                    <td>Lahan Tanaman Permanen</td>
-                                    <td>
-                                        <a href="" class="btn btn-warning text-white"><i class="fa fa-pencil"></i> Edit</a>
-                                        <a href="" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
-                                    </td>
-                                </tr>
+                                <?php endforeach  ?>
                             </tbody>
                         </table>
                     </div>

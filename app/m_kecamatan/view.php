@@ -26,7 +26,7 @@
                 <div class="card">
                     <div class="card-header">
                         <strong class="card-title">Kecamatan</strong>
-                        <a href="" class="btn btn-success"><i class="fa fa-plus"></i> Add</a>
+                        <a href="?p=add_kecamatan" class="btn btn-success"><i class="fa fa-plus"></i> Tambah</a>
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table-export" class="table table-striped table-bordered" >
@@ -34,58 +34,25 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Kecamatan</th>
+                                    <th>Luas</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php 
+                                $no = 1; 
+                                $result = $crud->get("SELECT * FROM tb_kecamatan");
+                                foreach ($result as $value): ?> 
                                 <tr>
-                                    <td>1.</td>
-                                    <td>Kawango Hari</td>
+                                    <td><?= $no++ ?></td>
+                                    <td><?= $value['kecamatan'] ?></td>
+                                    <td><?= $value['luas_tanah'] ?></td>
                                     <td>
-                                        <a href="" class="btn btn-warning text-white"><i class="fa fa-pencil"></i> Edit</a>
-                                        <a href="" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                                        <a href="?p=edit_kecamatan&id_kecamatan=<?= $value['id_kecamatan']?>" class="btn btn-warning text-white"><i class="fa fa-pencil"></i> Ubah</a>
+                                        <a href="?p=delete_kecamatan&id_kecamatan=<?= $value['id_kecamatan']?>" onClick="return confirm('Data Akan Dihapus !')"  class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>2.</td>
-                                    <td>Onggol</td>
-                                    <td>
-                                        <a href="" class="btn btn-warning text-white"><i class="fa fa-pencil"></i> Edit</a>
-                                        <a href="" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3.</td>
-                                    <td>Homba Karipit</td>
-                                    <td>
-                                        <a href="" class="btn btn-warning text-white"><i class="fa fa-pencil"></i> Edit</a>
-                                        <a href="" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4.</td>
-                                    <td>Wai Holo</td>
-                                    <td>
-                                        <a href="" class="btn btn-warning text-white"><i class="fa fa-pencil"></i> Edit</a>
-                                        <a href="" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>5.</td>
-                                    <td>Noha</td>
-                                    <td>
-                                        <a href="" class="btn btn-warning text-white"><i class="fa fa-pencil"></i> Edit</a>
-                                        <a href="" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>6.</td>
-                                    <td>Wailangira</td>
-                                    <td>
-                                        <a href="" class="btn btn-warning text-white"><i class="fa fa-pencil"></i> Edit</a>
-                                        <a href="" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
-                                    </td>
-                                </tr>
+                                <?php endforeach  ?>
                             </tbody>
                         </table>
                     </div>

@@ -1,3 +1,15 @@
+<?php
+error_reporting();
+session_start();
+include "helper/auth.php";
+$auth = new Auth();	
+$crud = new Crud();
+
+ob_start();
+if (empty($_SESSION['sess_user'])) {
+    header("location:../index.php");
+}
+?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -90,14 +102,36 @@
             
             if($page == "view_dashbord"){
                 include "dashbord/view.php";
+
             }elseif ($page == "view_kecamatan") {
                 include "m_kecamatan/view.php";
-            }elseif ($page == "view_jenis_lahan") {
+            }elseif ($page == "add_kecamatan") {
+                include "m_kecamatan/add_form.php";
+            }elseif ($page == "edit_kecamatan") {
+                include "m_kecamatan/edit_form.php";
+            }elseif ($page == "delete_kecamatan") {
+                include "m_kecamatan/delete.php";
+            }
+            
+            
+            elseif ($page == "view_jenis_lahan") {
                 include "m_jenis_lahan/view.php";
-            }elseif ($page == "view_kelompok_tani") {
+            }elseif ($page == "add_jenis_lahan") {
+                include "m_jenis_lahan/add_form.php";
+            }elseif ($page == "edit_jenis_lahan") {
+                include "m_jenis_lahan/edit_form.php";
+            }elseif ($page == "delete_jenis_lahan") {
+                include "m_jenis_lahan/delete.php";
+            }
+            
+            
+            elseif ($page == "view_kelompok_tani") {
                 include "m_kelompok_tani/view.php";
+            
             }elseif ($page == "view_pemetaan") {
                 include "t_pemetaan/view.php";
+            }elseif ($page == "add_pemetaan") {
+                include "t_pemetaan/add_form.php";
             }
             
 

@@ -33,7 +33,7 @@ class Crud {
 		$sql	.= "(".substr($field, 1).")";
 		$sql	.= " VALUES(".substr($row, 1).")";
 		$result  = $this->koneksi->setQuery($sql);
-		return $result;
+		return $sql;
 	}
 
 	public function update($table, $params, $id){

@@ -8,7 +8,7 @@ class Koneksi {
 	private $koneksi;
 	
 	function __construct(){
-		$this->koneksi = new mysqli("localhost","root","","db_sim_baznas");
+		$this->koneksi = new mysqli("localhost","root","","db_gis");
 
 		if ($this->koneksi->error) {
 			die($this->koneksi->error);
