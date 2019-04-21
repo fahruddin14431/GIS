@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: 19 Apr 2019 pada 14.59
+-- Generation Time: 21 Apr 2019 pada 04.23
 -- Versi Server: 10.1.26-MariaDB
 -- PHP Version: 7.1.9
 
@@ -54,6 +54,31 @@ CREATE TABLE `tb_kecamatan` (
   `luas_tanah` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `tb_kecamatan`
+--
+
+INSERT INTO `tb_kecamatan` (`id_kecamatan`, `kecamatan`, `luas_tanah`) VALUES
+('KEC1001', 'asdf', 12);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_kelompok_tani`
+--
+
+CREATE TABLE `tb_kelompok_tani` (
+  `id_kelompok_tani` varchar(10) NOT NULL,
+  `kelompok_tani` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tb_kelompok_tani`
+--
+
+INSERT INTO `tb_kelompok_tani` (`id_kelompok_tani`, `kelompok_tani`) VALUES
+('KTN1001', 'asdfaasdf');
+
 -- --------------------------------------------------------
 
 --
@@ -89,6 +114,12 @@ ALTER TABLE `tb_jenis_lahan`
 --
 ALTER TABLE `tb_kecamatan`
   ADD PRIMARY KEY (`id_kecamatan`);
+
+--
+-- Indexes for table `tb_kelompok_tani`
+--
+ALTER TABLE `tb_kelompok_tani`
+  ADD PRIMARY KEY (`id_kelompok_tani`);
 
 --
 -- Indexes for table `tb_pengguna`

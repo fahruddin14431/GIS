@@ -10,11 +10,6 @@ if (empty($_SESSION['sess_user'])) {
     header("location:../index.php");
 }
 ?>
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!-->
 <html class="no-js" lang="en">
 <!--<![endif]-->
 
@@ -127,8 +122,15 @@ if (empty($_SESSION['sess_user'])) {
             
             elseif ($page == "view_kelompok_tani") {
                 include "m_kelompok_tani/view.php";
+            }elseif ($page == "add_kelompok_tani") {
+                include "m_kelompok_tani/add_form.php";
+            }elseif ($page == "edit_kelompok_tani") {
+                include "m_kelompok_tani/edit_form.php";
+            }elseif ($page == "delete_kelompok_tani") {
+                include "m_kelompok_tani/delete.php";
+            }
             
-            }elseif ($page == "view_pemetaan") {
+            elseif ($page == "view_pemetaan") {
                 include "t_pemetaan/view.php";
             }elseif ($page == "add_pemetaan") {
                 include "t_pemetaan/add_form.php";
@@ -161,8 +163,6 @@ if (empty($_SESSION['sess_user'])) {
     <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
     <script src="../vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
-    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
     <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
     <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
     <script src="../vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
