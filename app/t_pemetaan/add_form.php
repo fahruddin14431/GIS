@@ -1,3 +1,6 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <div class="breadcrumbs">
     <div class="col-sm-4">
         <div class="page-header float-left">
@@ -29,10 +32,10 @@
                         <strong class="card-title">Tambah Pemetaan</strong>
                     </div>
                     <div class="card-body">
-                        <div class="form-horizontal">
+                        <form class="form-horizontal">
                             <div class="row form-group">
-                                <div class="col-12 col-md-3">
-                                    <select name="select" id="select" class="form-control">
+                                <div class="col-12 col-md-4">
+                                    <select name="select" id="kecamatan" class="js-example-basic-single form-control" required>
                                         <option value=""> -- Pilih Kecamatan --</option>
                                         <?php 
                                             $result = $crud->get("SELECT * FROM tb_kecamatan");
@@ -43,8 +46,8 @@
                                     </select>
                                 </div>
 
-                                <div class="col-12 col-md-3">
-                                    <select name="select" id="select" class="form-control">
+                                <div class="col-12 col-md-4">
+                                    <select name="select" id="jenis_lahan" class="js-example-basic-single form-control" required>
                                         <option value=""> -- Pilih Jenis Lahan --</option>
                                         <?php 
                                             $result = $crud->get("SELECT * FROM tb_jenis_lahan");
@@ -55,8 +58,8 @@
                                     </select>
                                 </div>
 
-                                <div class="col-12 col-md-3">
-                                    <select name="select" id="select" class="form-control">
+                                <div class="col-12 col-md-4">
+                                    <select name="select" id="kelompok_tani" class="js-example-basic-single form-control" required>
                                         <option value=""> -- Pilih Kelompok Tani --</option>
                                         <?php 
                                             $result = $crud->get("SELECT * FROM tb_kelompok_tani");
@@ -67,7 +70,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                         <div id="map" style="min-height:400px"></div>
                     </div>
                     <div class="card-footer">
@@ -89,6 +92,9 @@
 <!-- Gmaps -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1JuL6Rq5rIp65eOde2mBngeVlLr8lqEg&libraries=drawing&callback=initMap"></script>
 <script>
+
+$('.js-example-basic-single').select2();
+
 initMap();
 
 var json_poly
@@ -153,24 +159,66 @@ function initMap() {
 
 }
 
-$("#save").click(function(){
-     console.log(json_poly);
+// $(document).ready(function(){ 
 
-    var bermudaTriangle = new google.maps.Polygon({
-            paths: json_poly,
-            strokeColor: '#FF2200',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: '#FF2200',
-            fillOpacity: 0.35
+    $("#save").click(function(){
+
+        let id_kecamatan     = document.getElementById("kecamatan").value
+        let id_jenis_lahan   = document.getElementById("jenis_lahan").value
+        let id_kelompok_tani = document.getElementById("kelompok_tani").value
+        let lat_lng          = json_poly
+
+        if(id_kecamatan == "" || id_jenis_lahan == "" || id_kelompok_tani == "" || lat_lng == ""){
+            console.log("tes");
+            
+            swal({
+                title: "Pesan",
+                text: "Lengkapi Form",
+                icon: "warning",
+            })
+            return false;
+
+        }else{
+
+        swal({
+            title: "Apakah anda yakin?",
+            text: "Menambahkan polygone",
+            icon: "info",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                swal("Berhasil menambahkan polygone", {
+                icon: "success",
+            });
+
+                var bermudaTriangle = new google.maps.Polygon({
+                        paths: json_poly,
+                        strokeColor: '#FF2200',
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: '#FF2200',
+                        fillOpacity: 0.35
+                    });
+
+                bermudaTriangle.setMap(map);
+
+                console.log(id_kecamatan);
+                console.log(id_jenis_lahan);
+                console.log(id_kelompok_tani);
+                console.log(lat_lng);
+
+            } else {
+                swal("Gagal menambahkan polygone");
+            }
         });
-    bermudaTriangle.setMap(map);
+        }
+        
+    });
 
-});
-
-$("#reset").click(function(){
-    json_poly = "";
-    initMap();
-});
-
+    $("#reset").click(function(){
+        json_poly = "";
+        initMap();
+    });
+// })
 </script>
