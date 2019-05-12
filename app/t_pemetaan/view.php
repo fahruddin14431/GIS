@@ -1,3 +1,7 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="../vendors/jquery/dist/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <div class="breadcrumbs">
     <div class="col-sm-4">
         <div class="page-header float-left">
@@ -29,6 +33,51 @@
                         <a href="?p=add_pemetaan" class="btn btn-success"><i class="fa fa-plus"></i> Tambah</a>
                     </div>
                     <div class="card-body">
+                        <form class="form-horizontal">
+                            <div class="row form-group">
+                                <div class="col-12 col-md-3">
+                                    <select name="select" id="kecamatan" class="js-example-basic-single form-control" required>
+                                        <option value="all"> -- Pilih Semua Kecamatan --</option>
+                                        <?php 
+                                            $result = $crud->get("SELECT * FROM tb_kecamatan");
+                                            foreach ($result as $value) :
+                                        ?>
+                                        <option value="<?= $value['id_kecamatan']?>"><?= $value['kecamatan']?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-3">
+                                    <select name="select" id="jenis_lahan" class="js-example-basic-single form-control" required>
+                                        <option value="all"> -- Pilih Semua Jenis Lahan --</option>
+                                        <?php 
+                                            $result = $crud->get("SELECT * FROM tb_jenis_lahan");
+                                            foreach ($result as $value) :
+                                        ?>
+                                        <option value="<?= $value['id_jenis_lahan']?>"><?= $value['jenis_lahan']?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-3">
+                                    <select name="select" id="kelompok_tani" class="js-example-basic-single form-control" required>
+                                        <option value="all"> -- Pilih Semua Kelompok Tani --</option>
+                                        <?php 
+                                            $result = $crud->get("SELECT * FROM tb_kelompok_tani");
+                                            foreach ($result as $value) :
+                                        ?>
+                                        <option value="<?= $value['id_kelompok_tani']?>"><?= $value['kelompok_tani']?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+
+
+                                <div class="col-12 col-md-3">
+                                    <button id="terapkan" class="btn btn-primary"><i class="fa fa-plus"></i> Terapkan</button>
+                                </div>
+
+                            </div>
+                        </form>
                         <div id="map" style="min-height:450px"></div>
                     </div>
                 </div>
@@ -40,53 +89,100 @@
 </div><!-- .content -->
 
 <!-- Gmaps -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1JuL6Rq5rIp65eOde2mBngeVlLr8lqEg&libraries=drawing&callback=initMap"
-         async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1JuL6Rq5rIp65eOde2mBngeVlLr8lqEg&libraries=drawing&callback=initMap"></script>
 <script>
 initMap();
-
-function initMap() {
-    var map, polyline, marker, i;
+var map, polyline, marker, i, areas;
+var infowindow = new google.maps.InfoWindow();
+function initMap() {    
 
     var mapOptions = {
-        zoom: 10,
+        zoom: 13,
         center: new google.maps.LatLng(-9.429470, 119.237701),
         mapTypeId: google.maps.MapTypeId.terrain
     };
 
     map = new google.maps.Map(document.getElementById('map'),mapOptions);
 
-
-    // Define the LatLng coordinates for the polygon's path.
-    // var triangleCoords = [
-    //       {lat: -9.375373, lng: 118.915240},
-    //       {lat: -9.321171, lng: 119.338029},
-    //       {lat: -9.824920, lng: 119.372346},
-    //       {lat: -9.803268, lng: 118.864451}
-    //     ];
-
-        
-         var triangleCoords = [
-                                // {lat: -9.375373, lng: 118.915240},
-                                // {lat: -9.321171, lng: 119.338029},
-                                // {lat: -9.824920, lng: 119.372346},
-                                // {lat: -9.803268, lng: 118.864451},
-                                {lat: 7.687124197254878,    lng: 104.36221271875002},
-                                {lat: 7.774216005176154,    lng: 131.34463459375002},
-                                {lat: -8.952279019933842,   lng: 130.02627521875002},
-                                {lat: -7.211995525492896,   lng: 105.24111896875002},
-                                {lat: 6.3787134957259966,   lng: 104.18643146875002},
-                                {lat: 7.687124197254904,    lng: 104.36221271875002}
-                            ];
-        // Construct the polygon.
-        var bermudaTriangle = new google.maps.Polygon({
-          paths: triangleCoords,
-          strokeColor: '#FF0000',
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: '#FF0000',
-          fillOpacity: 0.35
-        });
-        bermudaTriangle.setMap(map);
+    // called from db
+   getAllPeta()
 }
+
+// var areas
+function getAllPeta(kecamatan ="all", lahan="all", kelompok_tani="all"){
+    let param = {id_kecamatan : kecamatan, id_jenis_lahan : lahan, id_kelompok_tani : kelompok_tani};   
+    
+    $.post("t_pemetaan/get_all_peta.php",param, function(data, status){    
+        let res = JSON.parse(data)
+        $.each(res, function(i,items) {             
+            let area        = JSON.parse(res[i].lat_lng)
+            let color       = res[i].warna 
+            let k_tani      = res[i].kelompok_tani
+            let kecamatan   = res[i].kecamatan
+            let j_lahan     = res[i].jenis_lahan
+
+            // Construct the polygon.
+            areas = new google.maps.Polygon({
+                paths: area,
+                strokeColor: color,
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: color,
+                fillOpacity: 0.35,
+            })            
+            areas.setMap(map)
+            
+            
+            google.maps.event.addListener(areas, 'click', function(e) {              
+                // alert(kecamatan +" "+ k_tani+" "+j_lahan)
+                
+                infowindow.setContent(
+                    `<div>
+                        <table>
+                            <tr>
+                                <td>Kecamatan</td>
+                                <td>:</td>
+                                <td>`+ kecamatan +`</td>
+                            </tr>
+                            <tr>
+                                <td>Kelompok Tani</td>
+                                <td>:</td>
+                                <td>`+ k_tani +`</td>
+                            </tr>
+                            <tr>
+                                <td>Jenis Lahan</td>
+                                <td>:</td>
+                                <td>` + j_lahan + `</td>
+                            </tr>
+                        </table>
+                    </div>`
+                );
+                infowindow.setPosition(e.latLng);
+                infowindow.open(map);
+            });
+        })        
+    }) 
+    
+}
+
+// $(document).ready(function(){
+    $("#terapkan").click(function(e){
+        e.preventDefault()    
+        areas.setMap(null)
+        let id_kecamatan     = document.getElementById("kecamatan").value
+        let id_jenis_lahan   = document.getElementById("jenis_lahan").value
+        let id_kelompok_tani = document.getElementById("kelompok_tani").value
+
+        if(id_kecamatan == "" || id_jenis_lahan == "" || id_kelompok_tani == ""){
+            swal({
+                title: "Pesan",
+                text: "Lengkapi Form",
+                icon: "warning",
+            })
+        }else{
+            getAllPeta(id_kecamatan, id_jenis_lahan, id_kelompok_tani)         
+        }
+    })
+// })
+
 </script>

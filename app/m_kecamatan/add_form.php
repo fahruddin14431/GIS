@@ -37,7 +37,7 @@
                                 <input type="text" name="kecamatan" placeholder="Kecamatan" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label class="form-control-label">Kecamatan</label>
+                                <label class="form-control-label">Luas Tanah</label>
                                 <input type="number" name="luas_tanah" placeholder="Luas Tanah" class="form-control" required>
                             </div>
                             

@@ -1,4 +1,5 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="../vendors/jquery/dist/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <div class="breadcrumbs">
@@ -89,8 +90,10 @@
     </div><!-- .animated -->
 </div><!-- .content -->
 
+
 <!-- Gmaps -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1JuL6Rq5rIp65eOde2mBngeVlLr8lqEg&libraries=drawing&callback=initMap"></script>
+
 <script>
 
 $('.js-example-basic-single').select2();
@@ -169,7 +172,6 @@ function initMap() {
         let lat_lng          = json_poly
 
         if(id_kecamatan == "" || id_jenis_lahan == "" || id_kelompok_tani == "" || lat_lng == ""){
-            console.log("tes");
             
             swal({
                 title: "Pesan",
@@ -201,12 +203,19 @@ function initMap() {
                         fillOpacity: 0.35
                     });
 
-                bermudaTriangle.setMap(map);
+                bermudaTriangle.setMap(map);           
 
-                console.log(id_kecamatan);
-                console.log(id_jenis_lahan);
-                console.log(id_kelompok_tani);
-                console.log(lat_lng);
+                let param = {id_kecamatan : id_kecamatan, id_jenis_lahan : id_jenis_lahan, id_kelompok_tani : id_kelompok_tani, lat_lng : JSON.stringify(lat_lng)};
+                console.log(param)
+                $.post("t_pemetaan/add.php", param, function(data, status){
+                    if(status){
+                        var delayInMilliseconds = 1000
+
+                        setTimeout(function() {
+                            window.location = "index.php?p=view_pemetaan"
+                        }, delayInMilliseconds)
+                    }
+                });                
 
             } else {
                 swal("Gagal menambahkan polygone");

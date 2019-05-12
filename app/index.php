@@ -10,14 +10,11 @@ if (empty($_SESSION['sess_user'])) {
     header("location:../index.php");
 }
 ?>
-<html class="no-js" lang="en">
-<!--<![endif]-->
-
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sufee Admin - HTML5 Admin Template</title>
-    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <title>Sumba Barat G I S</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="apple-icon.png">
@@ -51,31 +48,30 @@ if (empty($_SESSION['sess_user'])) {
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="./"><img src="../images/logo.png" alt="Logo"></a>
-                <a class="navbar-brand hidden" href="./"><img src="../images/logo2.png" alt="Logo"></a>
+                <a class="navbar-brand" href="./"><b>S B D G I S</b></a>
             </div>
 
             <?php $page = isset( $_GET['p'])?$_GET['p']:""; ?>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class='<?= $page=="view_dashbord"?"active":"" ?>'' >
+                    <li class='<?= $page=="view_dashbord"?"active":"" ?>' >
                         <a href="?p=view_dashbord"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
 
                     <h3 class="menu-title">Master</h3><!-- /.menu-title -->
-                    <li class='<?= $page=="view_kecamatan"?"active":"" ?>'' >
+                    <li class='<?= $page=="view_kecamatan"?"active":"" ?>' >
                         <a href="?p=view_kecamatan"> <i class="menu-icon fa fa-map-marker"></i>Kecamatan </a>
                     </li>
-                    <li class='<?= $page=="view_jenis_lahan"?"active":"" ?>'' >
+                    <li class='<?= $page=="view_jenis_lahan"?"active":"" ?>' >
                         <a href="?p=view_jenis_lahan"> <i class="menu-icon fa fa-tags"></i>Jenis Lahan </a>
                     </li>
-                    <li class='<?= $page=="view_kelompok_tani"?"active":"" ?>'' >
+                    <li class='<?= $page=="view_kelompok_tani"?"active":"" ?>' >
                         <a href="?p=view_kelompok_tani"> <i class="menu-icon fa fa-users"></i>Kelompok Tani </a>
                     </li>
 
                     <h3 class="menu-title">Transaksi</h3><!-- /.menu-title -->
-                    <li class='<?= $page=="view_pemetaan"?"active":"" ?>'' >
+                    <li class='<?= $page=="view_pemetaan"?"active":"" ?>' >
                         <a href="?p=view_pemetaan"> <i class="menu-icon fa fa-map-o"></i>Pemetaan </a>
                     </li>
                 </ul>
@@ -88,9 +84,54 @@ if (empty($_SESSION['sess_user'])) {
     <!-- Right Panel -->
 
     <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        <header id="header" class="header">
 
+            <div class="header-menu">
+
+                <div class="col-sm-7">
+                    <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks" style="margin-top:10px"></i></a>
+                    <div class="header-left">
+                        <button class="search-trigger"><i class="fa fa-search"></i></button>
+                        <div class="form-inline">
+                            <form class="search-form">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
+                                <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
+                            </form>
+                        </div>
+
+                        <div class="dropdown for-notification">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-bell"></i>
+                                <span class="count bg-danger">5</span>
+                            </button>
+                           
+                        </div>
+
+                        <div class="dropdown for-message">
+                            <button class="btn btn-secondary dropdown-toggle" type="button"
+                                id="message"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="ti-email"></i>
+                                <span class="count bg-primary">9</span>
+                            </button>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-5">
+                    <a href="../logout.php" class="pull-right" style="color:red;margin-top:8px">
+                        <i class="fa fa-power-off"></i> Keluar
+                    </a>
+                </div>
+            </div>
+
+        </header><!-- /header -->
+        <!-- Header-->
+        <!-- <hr> -->
+        <p style="margin-top:-12px"></p>
         
-
         <?php
 
         if($page){
@@ -144,6 +185,7 @@ if (empty($_SESSION['sess_user'])) {
         }
         
         ?>
+        </div>
 
     </div><!-- /#right-panel -->
 

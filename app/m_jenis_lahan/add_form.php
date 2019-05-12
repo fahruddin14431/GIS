@@ -36,9 +36,27 @@
                                 <label class="form-control-label">Jenis Lahan</label>
                                 <input type="text" name="jenis_lahan" placeholder="Jenis Lahan" class="form-control" required>
                             </div>
+
                             <div class="form-group">
-                                <label class="form-control-label">Kecamatan</label>
+                                <label class="form-control-label">Luas Tanah</label>
                                 <input type="number" name="luas_tanah" placeholder="Luas Tanah" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-control-label">Warna</label>
+                                <select name="warna" required class="form-control">
+                                    <option value=""> -- Pilih Warna --</option>
+                                    <?php
+                                         $arr_warna = array(
+                                                        'red'    => "Merah", 
+                                                        'yellow' => "Kuning", 
+                                                        'green'  => "Hijau", 
+                                            );
+                                            foreach ($arr_warna as $key => $value) :
+                                    ?>
+                                    <option value="<?= $key ?>"> <?= $value ?> </option>
+                                    <?php endforeach ?>
+                                </select>
                             </div>
                             
                         </div>

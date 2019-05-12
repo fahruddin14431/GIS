@@ -43,10 +43,28 @@ $result = $crud->get("SELECT * FROM tb_jenis_lahan WHERE id_jenis_lahan = '$id_j
                                 <label class="form-control-label">Jenis Lahan</label>
                                 <input type="text" value="<?= $result['jenis_lahan']?>" name="jenis_lahan" placeholder="Jenis Lahan" class="form-control" required>
                             </div>
+
                             <div class="form-group">
                                 <label class="form-control-label">Luas Tanah</label>
                                 <input type="number" value="<?= $result['luas_tanah']?>" name="luas_tanah" placeholder="Luas Tanah" class="form-control" required>
                             </div>
+
+                            <div class="form-group">
+                                <label class="form-control-label">Warna</label>
+                                <select name="warna" required class="form-control">
+                                    <option value=""> -- Pilih Warna --</option>
+                                    <?php
+                                         $arr_warna = array(
+                                                        'red'    => "Merah", 
+                                                        'yellow' => "Kuning", 
+                                                        'green'  => "Hijau", 
+                                            );
+                                            foreach ($arr_warna as $key => $value) :
+                                    ?>
+                                    <option <?= $result['warna']==$key?"selected":""?> value="<?= $key ?>"> <?= $value ?> </option>
+                                    <?php endforeach ?>
+
+                                </select>
                             
                         </div>
                         <div class="card-footer">
