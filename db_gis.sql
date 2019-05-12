@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: 21 Apr 2019 pada 04.23
+-- Generation Time: 12 Mei 2019 pada 15.24
 -- Versi Server: 10.1.26-MariaDB
 -- PHP Version: 7.1.9
 
@@ -31,6 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `tb_jenis_lahan` (
   `id_jenis_lahan` varchar(10) NOT NULL,
   `jenis_lahan` varchar(100) NOT NULL,
+  `warna` varchar(100) NOT NULL,
   `luas_tanah` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -38,9 +39,9 @@ CREATE TABLE `tb_jenis_lahan` (
 -- Dumping data untuk tabel `tb_jenis_lahan`
 --
 
-INSERT INTO `tb_jenis_lahan` (`id_jenis_lahan`, `jenis_lahan`, `luas_tanah`) VALUES
-('JLH1002', 'asdf', 23),
-('JLH1003', 'asdf', 1231);
+INSERT INTO `tb_jenis_lahan` (`id_jenis_lahan`, `jenis_lahan`, `warna`, `luas_tanah`) VALUES
+('JLH1001', 'jenis lahan 1', 'red', 100),
+('JLH1002', 'jenis lahan 2', 'yellow', 50);
 
 -- --------------------------------------------------------
 
@@ -59,7 +60,7 @@ CREATE TABLE `tb_kecamatan` (
 --
 
 INSERT INTO `tb_kecamatan` (`id_kecamatan`, `kecamatan`, `luas_tanah`) VALUES
-('KEC1001', 'asdf', 12);
+('KEC1001', 'Kecamatan 1', 12);
 
 -- --------------------------------------------------------
 
@@ -77,7 +78,21 @@ CREATE TABLE `tb_kelompok_tani` (
 --
 
 INSERT INTO `tb_kelompok_tani` (`id_kelompok_tani`, `kelompok_tani`) VALUES
-('KTN1001', 'asdfaasdf');
+('KTN1001', 'Kelompok tani 1');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_pemetaan`
+--
+
+CREATE TABLE `tb_pemetaan` (
+  `id_pemetaan` varchar(10) NOT NULL,
+  `id_kecamatan` varchar(10) NOT NULL,
+  `id_jenis_lahan` varchar(10) NOT NULL,
+  `id_kelompok_tani` varchar(10) NOT NULL,
+  `lat_lng` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -122,10 +137,31 @@ ALTER TABLE `tb_kelompok_tani`
   ADD PRIMARY KEY (`id_kelompok_tani`);
 
 --
+-- Indexes for table `tb_pemetaan`
+--
+ALTER TABLE `tb_pemetaan`
+  ADD PRIMARY KEY (`id_pemetaan`),
+  ADD KEY `id_kecamatan` (`id_kecamatan`),
+  ADD KEY `id_jenis_lahan` (`id_jenis_lahan`),
+  ADD KEY `id_kelompok_tani` (`id_kelompok_tani`);
+
+--
 -- Indexes for table `tb_pengguna`
 --
 ALTER TABLE `tb_pengguna`
   ADD PRIMARY KEY (`id_pengguna`);
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `tb_pemetaan`
+--
+ALTER TABLE `tb_pemetaan`
+  ADD CONSTRAINT `tb_pemetaan_ibfk_1` FOREIGN KEY (`id_jenis_lahan`) REFERENCES `tb_jenis_lahan` (`id_jenis_lahan`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_pemetaan_ibfk_2` FOREIGN KEY (`id_kelompok_tani`) REFERENCES `tb_kelompok_tani` (`id_kelompok_tani`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_pemetaan_ibfk_3` FOREIGN KEY (`id_kecamatan`) REFERENCES `tb_kecamatan` (`id_kecamatan`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
