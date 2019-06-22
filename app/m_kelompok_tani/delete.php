@@ -1,8 +1,8 @@
 
 <?php  
-$id_kelompok_tani = $_GET['id_kelompok_tani'];
+$id_pengguna = $_GET['id_pengguna'];
 
-$res  = $crud->delete("tb_kelompok_tani","id_kelompok_tani = '$id_kelompok_tani'");
+$res  = $crud->delete("tb_pengguna","id_pengguna = '$id_pengguna'");
 
 if ($res) {
     header("location:index.php?p=view_kelompok_tani");

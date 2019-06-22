@@ -11,7 +11,7 @@
             <div class="page-title">
                 <ol class="breadcrumb text-right">
                     <li><a href="#">Master</a></li>
-                    <li class="active">Tambah Jenis Lahan</li>
+                    <li class="active">Tambah Jenis Lahan Panen</li>
                 </ol>
             </div>
         </div>
@@ -33,8 +33,8 @@
                         <div class="card-body card-block">
                             
                             <div class="form-group">
-                                <label class="form-control-label">Jenis Lahan</label>
-                                <input type="text" name="jenis_lahan" placeholder="Jenis Lahan" class="form-control" required>
+                                <label class="form-control-label">Jenis Lahan Panen</label>
+                                <input type="text" name="jenis_lahan" placeholder="Jenis Lahan Panen" class="form-control" required>
                             </div>
 
                             <div class="form-group">

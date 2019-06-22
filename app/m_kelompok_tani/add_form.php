@@ -26,7 +26,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <strong>Tambah Lahan</strong> 
+                        <strong>Tambah Kelompok Tani</strong> 
                     </div>
 
                     <form action="m_kelompok_tani/add.php" method="post">
@@ -35,6 +35,29 @@
                             <div class="form-group">
                                 <label class="form-control-label">Kelompok Tani</label>
                                 <input type="text" name="kelompok_tani" placeholder="Kelompok Tani" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-control-label">Kecamatan</label>
+                                <select name="id_kecamatan" class="js-example-basic-single form-control" required>
+                                    <option value=""> -- Pilih Kecamatan --</option>
+                                    <?php 
+                                        $result = $crud->get("SELECT * FROM tb_kecamatan");
+                                        foreach ($result as $value) :
+                                    ?>
+                                    <option value="<?= $value['id_kecamatan']?>"><?= $value['kecamatan']?></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-control-label">Pengguna</label>
+                                <input type="text" name="pengguna" placeholder="Pengguna" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-control-label">Kata Sandi</label>
+                                <input type="password" name="kata_sandi" placeholder="Kata Sandi" class="form-control" required>
                             </div>
                             
                         </div>

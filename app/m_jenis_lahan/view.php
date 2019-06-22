@@ -2,7 +2,7 @@
     <div class="col-sm-4">
         <div class="page-header float-left">
             <div class="page-title">
-                <h1>Jenis Lahan</h1>
+                <h1>Jenis Lahan Panen</h1>
             </div>
         </div>
     </div>
@@ -11,7 +11,7 @@
             <div class="page-title">
                 <ol class="breadcrumb text-right">
                     <li><a href="#">Master</a></li>
-                    <li class="active">Jenis Lahan</li>
+                    <li class="active">Jenis Lahan Panen</li>
                 </ol>
             </div>
         </div>
@@ -25,7 +25,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Jenis Lahan</strong>
+                        <strong class="card-title">Jenis Lahan Panen</strong>
                         <a href="?p=add_jenis_lahan" class="btn btn-success"><i class="fa fa-plus"></i> Tambah</a>
                     </div>
                     <div class="card-body">
@@ -33,7 +33,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Jenis Lahan</th>
+                                    <th>Jenis Lahan Panen</th>
                                     <th>Luas</th>
                                     <th>Warna</th>
                                     <th>Aksi</th>

@@ -6,7 +6,7 @@
     <div class="col-sm-4">
         <div class="page-header float-left">
             <div class="page-title">
-                <h1>Pemetaan</h1>
+                <h1>Hasil Panen Dan Pemetaan</h1>
             </div>
         </div>
     </div>
@@ -15,8 +15,8 @@
             <div class="page-title">
                 <ol class="breadcrumb text-right">
                     <li><a href="#">Transaksi</a></li>
-                    <li><a href="#">Pemetaan</a></li>
-                    <li class="active">Tambah Pemetaan</li>
+                    <li><a href="#">Hasil Panen Dan Pemetaan</a></li>
+                    <li class="active">Tambah Hasil Panen Dan Pemetaan</li>
                 </ol>
             </div>
         </div>
@@ -30,36 +30,14 @@
             <div class="col-lg-12" >
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Tambah Pemetaan</strong>
+                        <strong class="card-title">Tambah Hasil Panen Dan Pemetaan</strong>
                     </div>
                     <div class="card-body">
                         <form class="form-horizontal">
-                            <div class="row form-group">
-                                <div class="col-12 col-md-4">
-                                    <select name="select" id="kecamatan" class="js-example-basic-single form-control" required>
-                                        <option value=""> -- Pilih Kecamatan --</option>
-                                        <?php 
-                                            $result = $crud->get("SELECT * FROM tb_kecamatan");
-                                            foreach ($result as $value) :
-                                        ?>
-                                        <option value="<?= $value['id_kecamatan']?>"><?= $value['kecamatan']?></option>
-                                        <?php endforeach ?>
-                                    </select>
-                                </div>
+                            <div class="row form-group">                                
 
                                 <div class="col-12 col-md-4">
-                                    <select name="select" id="jenis_lahan" class="js-example-basic-single form-control" required>
-                                        <option value=""> -- Pilih Jenis Lahan --</option>
-                                        <?php 
-                                            $result = $crud->get("SELECT * FROM tb_jenis_lahan");
-                                            foreach ($result as $value) :
-                                        ?>
-                                        <option value="<?= $value['id_jenis_lahan']?>"><?= $value['jenis_lahan']?></option>
-                                        <?php endforeach ?>
-                                    </select>
-                                </div>
-
-                                <div class="col-12 col-md-4">
+                                    <label for="">Kelompok Tani</label>
                                     <select name="select" id="kelompok_tani" class="js-example-basic-single form-control" required>
                                         <option value=""> -- Pilih Kelompok Tani --</option>
                                         <?php 
@@ -70,6 +48,25 @@
                                         <?php endforeach ?>
                                     </select>
                                 </div>
+
+                                <div class="col-12 col-md-4">
+                                    <label for="">Jenis Lahan Panen</label>
+                                    <select name="select" id="jenis_lahan" class="js-example-basic-single form-control" required>
+                                        <option value=""> -- Pilih Jenis Lahan Panen --</option>
+                                        <?php 
+                                            $result = $crud->get("SELECT * FROM tb_jenis_lahan");
+                                            foreach ($result as $value) :
+                                        ?>
+                                        <option value="<?= $value['id_jenis_lahan']?>"><?= $value['jenis_lahan']?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>                                
+
+                                <div class="col-12 col-md-4">                                    
+                                    <label for="">Total Produksi (Ton)</label>
+                                    <input type="number" id="total_produksi" name="total_produksi" placeholder="Total Produksi (Ton)" class="form-control" required>
+                                </div>
+
                             </div>
                         </form>
                         <div id="map" style="min-height:400px"></div>
@@ -166,12 +163,13 @@ function initMap() {
 
     $("#save").click(function(){
 
-        let id_kecamatan     = document.getElementById("kecamatan").value
         let id_jenis_lahan   = document.getElementById("jenis_lahan").value
         let id_kelompok_tani = document.getElementById("kelompok_tani").value
+        let total_produksi   = document.getElementById("total_produksi").value        
         let lat_lng          = json_poly
-
-        if(id_kecamatan == "" || id_jenis_lahan == "" || id_kelompok_tani == "" || lat_lng == ""){
+        console.log(total_produksi);
+        
+        if(id_jenis_lahan == "" || id_kelompok_tani == "" || typeof(lat_lng) == "undefined" || total_produksi == ""){
             
             swal({
                 title: "Pesan",
@@ -184,13 +182,13 @@ function initMap() {
 
         swal({
             title: "Apakah anda yakin?",
-            text: "Menambahkan polygone",
+            text: "Menambahkan Hasil Panen Dan Pemetaan",
             icon: "info",
             buttons: true,
             dangerMode: true,
         }).then((willDelete) => {
             if (willDelete) {
-                swal("Berhasil menambahkan polygone", {
+                swal("Berhasil Hasil Panen Dan Pemetaan", {
                 icon: "success",
             });
 
@@ -205,9 +203,11 @@ function initMap() {
 
                 bermudaTriangle.setMap(map);           
 
-                let param = {id_kecamatan : id_kecamatan, id_jenis_lahan : id_jenis_lahan, id_kelompok_tani : id_kelompok_tani, lat_lng : JSON.stringify(lat_lng)};
+                let param = {id_jenis_lahan : id_jenis_lahan, id_kelompok_tani : id_kelompok_tani, lat_lng : JSON.stringify(lat_lng), total_produksi : total_produksi};
                 console.log(param)
                 $.post("t_pemetaan/add.php", param, function(data, status){
+                    console.log(data);
+                    
                     if(status){
                         var delayInMilliseconds = 1000
 

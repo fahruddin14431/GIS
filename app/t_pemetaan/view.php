@@ -6,7 +6,7 @@
     <div class="col-sm-4">
         <div class="page-header float-left">
             <div class="page-title">
-                <h1>Pemetaan</h1>
+                <h1>Hasil Panen Dan Pemetaan</h1>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
             <div class="page-title">
                 <ol class="breadcrumb text-right">
                     <li><a href="#">Transaksi</a></li>
-                    <li class="active">Pemetaan</li>
+                    <li class="active">Hasil Panen Dan Pemetaan</li>
                 </ol>
             </div>
         </div>
@@ -34,22 +34,11 @@
                     </div>
                     <div class="card-body">
                         <form class="form-horizontal">
-                            <div class="row form-group">
-                                <div class="col-12 col-md-3">
-                                    <select name="select" id="kecamatan" class="js-example-basic-single form-control" required>
-                                        <option value="all"> -- Pilih Semua Kecamatan --</option>
-                                        <?php 
-                                            $result = $crud->get("SELECT * FROM tb_kecamatan");
-                                            foreach ($result as $value) :
-                                        ?>
-                                        <option value="<?= $value['id_kecamatan']?>"><?= $value['kecamatan']?></option>
-                                        <?php endforeach ?>
-                                    </select>
-                                </div>
+                            <div class="row form-group">                                
 
-                                <div class="col-12 col-md-3">
+                                <div class="col-12 col-md-5">
                                     <select name="select" id="jenis_lahan" class="js-example-basic-single form-control" required>
-                                        <option value="all"> -- Pilih Semua Jenis Lahan --</option>
+                                        <option value="all"> -- Pilih Semua Jenis Lahan Panen --</option>
                                         <?php 
                                             $result = $crud->get("SELECT * FROM tb_jenis_lahan");
                                             foreach ($result as $value) :
@@ -59,7 +48,7 @@
                                     </select>
                                 </div>
 
-                                <div class="col-12 col-md-3">
+                                <div class="col-12 col-md-5">
                                     <select name="select" id="kelompok_tani" class="js-example-basic-single form-control" required>
                                         <option value="all"> -- Pilih Semua Kelompok Tani --</option>
                                         <?php 
@@ -72,7 +61,7 @@
                                 </div>
 
 
-                                <div class="col-12 col-md-3">
+                                <div class="col-12 col-md-2">
                                     <button id="terapkan" class="btn btn-primary"><i class="fa fa-plus"></i> Terapkan</button>
                                 </div>
 
@@ -115,11 +104,12 @@ function getAllPeta(kecamatan ="all", lahan="all", kelompok_tani="all"){
     $.post("t_pemetaan/get_all_peta.php",param, function(data, status){    
         let res = JSON.parse(data)
         $.each(res, function(i,items) {             
-            let area        = JSON.parse(res[i].lat_lng)
-            let color       = res[i].warna 
-            let k_tani      = res[i].kelompok_tani
-            let kecamatan   = res[i].kecamatan
-            let j_lahan     = res[i].jenis_lahan
+            let area            = JSON.parse(res[i].lat_lng)
+            let color           = res[i].warna 
+            let k_tani          = res[i].kelompok_tani
+            let kecamatan       = res[i].kecamatan
+            let j_lahan         = res[i].jenis_lahan
+            let total_produksi  = res[i].total_produksi+" Ton"
 
             // Construct the polygon.
             areas = new google.maps.Polygon({
@@ -150,9 +140,14 @@ function getAllPeta(kecamatan ="all", lahan="all", kelompok_tani="all"){
                                 <td>`+ k_tani +`</td>
                             </tr>
                             <tr>
-                                <td>Jenis Lahan</td>
+                                <td>Jenis Lahan Panen</td>
                                 <td>:</td>
                                 <td>` + j_lahan + `</td>
+                            </tr>
+                            <tr>
+                                <td>Total Produksi</td>
+                                <td>:</td>
+                                <td>` + total_produksi + `</td>
                             </tr>
                         </table>
                     </div>`
@@ -168,19 +163,19 @@ function getAllPeta(kecamatan ="all", lahan="all", kelompok_tani="all"){
 // $(document).ready(function(){
     $("#terapkan").click(function(e){
         e.preventDefault()    
-        areas.setMap(null)
-        let id_kecamatan     = document.getElementById("kecamatan").value
+        // areas.setMap(null)
+        // let id_kecamatan     = document.getElementById("kecamatan").value
         let id_jenis_lahan   = document.getElementById("jenis_lahan").value
         let id_kelompok_tani = document.getElementById("kelompok_tani").value
 
-        if(id_kecamatan == "" || id_jenis_lahan == "" || id_kelompok_tani == ""){
+        if(id_jenis_lahan == "" || id_kelompok_tani == ""){
             swal({
                 title: "Pesan",
                 text: "Lengkapi Form",
                 icon: "warning",
             })
         }else{
-            getAllPeta(id_kecamatan, id_jenis_lahan, id_kelompok_tani)         
+            getAllPeta(id_jenis_lahan, id_kelompok_tani)         
         }
     })
 // })

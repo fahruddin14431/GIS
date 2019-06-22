@@ -9,7 +9,7 @@ $result = $crud->get("SELECT * FROM tb_jenis_lahan WHERE id_jenis_lahan = '$id_j
     <div class="col-sm-4">
         <div class="page-header float-left">
             <div class="page-title">
-                <h1>Jenis Lahan</h1>
+                <h1>Jenis Lahan Panen</h1>
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@ $result = $crud->get("SELECT * FROM tb_jenis_lahan WHERE id_jenis_lahan = '$id_j
             <div class="page-title">
                 <ol class="breadcrumb text-right">
                     <li><a href="#">Master</a></li>
-                    <li class="active">Ubah Jenis Lahan</li>
+                    <li class="active">Ubah Jenis Lahan Panen</li>
                 </ol>
             </div>
         </div>
@@ -33,15 +33,15 @@ $result = $crud->get("SELECT * FROM tb_jenis_lahan WHERE id_jenis_lahan = '$id_j
 
                 <div class="card">
                     <div class="card-header">
-                        <strong>Ubah Jenis Lahan</strong> 
+                        <strong>Ubah Jenis Lahan Panen</strong> 
                     </div>
 
                     <form action="m_jenis_lahan/edit.php" method="post">
                         <div class="card-body card-block">
                             
                             <div class="form-group">
-                                <label class="form-control-label">Jenis Lahan</label>
-                                <input type="text" value="<?= $result['jenis_lahan']?>" name="jenis_lahan" placeholder="Jenis Lahan" class="form-control" required>
+                                <label class="form-control-label">Jenis Lahan Panen</label>
+                                <input type="text" value="<?= $result['jenis_lahan']?>" name="jenis_lahan" placeholder="Jenis Lahan Panen" class="form-control" required>
                             </div>
 
                             <div class="form-group">

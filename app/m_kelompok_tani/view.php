@@ -22,7 +22,7 @@
     <div class="animated fadeIn">
         <div class="row">
 
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
                         <strong class="card-title">Kelompok Tani</strong>
@@ -33,21 +33,29 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Pengguna</th>
                                     <th>Kelompok Tani</th>
+                                    <th>Kecamatan</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php 
                                 $no = 1; 
-                                $result = $crud->get("SELECT * FROM tb_kelompok_tani");
+                                $result = $crud->get("SELECT * FROM tb_kelompok_tani AS k
+                                                        INNER JOIN tb_pengguna AS p
+                                                        ON k.id_pengguna = p.id_pengguna
+                                                        INNER JOIN tb_kecamatan AS kc
+                                                        ON kc.id_kecamatan = k.id_kecamatan");
                                 foreach ($result as $value): ?> 
                                 <tr>
                                     <td><?= $no++ ?></td>
+                                    <td><?= $value['pengguna'] ?></td>
                                     <td><?= $value['kelompok_tani'] ?></td>
+                                    <td><?= $value['kecamatan'] ?></td>
                                     <td>
-                                        <a href="?p=edit_kelompok_tani&id_kelompok_tani=<?= $value['id_kelompok_tani']?>" class="btn btn-warning text-white"><i class="fa fa-pencil"></i> Ubah</a>
-                                        <a href="?p=delete_kelompok_tani&id_kelompok_tani=<?= $value['id_kelompok_tani']?>" onClick="return confirm('Data Akan Dihapus !')"  class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</a>
+                                        <a href="?p=edit_kelompok_tani&id_pengguna=<?= $value['id_pengguna']?>" class="btn btn-warning text-white"><i class="fa fa-pencil"></i> Ubah</a>
+                                        <a href="?p=delete_kelompok_tani&id_pengguna=<?= $value['id_pengguna']?>" onClick="return confirm('Data Akan Dihapus !')"  class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</a>
                                     </td>
                                 </tr>
                                 <?php endforeach  ?>

@@ -64,16 +64,18 @@ if (empty($_SESSION['sess_user'])) {
                         <a href="?p=view_kecamatan"> <i class="menu-icon fa fa-map-marker"></i>Kecamatan </a>
                     </li>
                     <li class='<?= $page=="view_jenis_lahan"?"active":"" ?>' >
-                        <a href="?p=view_jenis_lahan"> <i class="menu-icon fa fa-tags"></i>Jenis Lahan </a>
+                        <a href="?p=view_jenis_lahan"> <i class="menu-icon fa fa-tags"></i>Jenis Lahan Panen </a>
                     </li>
+                    
+
+                    <h3 class="menu-title">Transaksi</h3><!-- /.menu-title -->
                     <li class='<?= $page=="view_kelompok_tani"?"active":"" ?>' >
                         <a href="?p=view_kelompok_tani"> <i class="menu-icon fa fa-users"></i>Kelompok Tani </a>
                     </li>
-
-                    <h3 class="menu-title">Transaksi</h3><!-- /.menu-title -->
                     <li class='<?= $page=="view_pemetaan"?"active":"" ?>' >
-                        <a href="?p=view_pemetaan"> <i class="menu-icon fa fa-map-o"></i>Pemetaan </a>
+                        <a href="?p=view_pemetaan"> <i class="menu-icon fa fa-map-o"></i>Hasil Panen Dan Pemetaan </a>
                     </li>
+                    
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
