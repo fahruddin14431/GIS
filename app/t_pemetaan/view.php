@@ -30,25 +30,29 @@
                 <div class="card">
                     <div class="card-header">
                         <strong class="card-title">Pemetaan</strong>
+                        <?php if($_SESSION['sess_user']['sess_peran']=="admin"): ?>
                         <a href="?p=add_pemetaan" class="btn btn-success"><i class="fa fa-plus"></i> Tambah</a>
+                        <?php endif ?>
                     </div>
                     <div class="card-body">
                         <form class="form-horizontal">
                             <div class="row form-group">                                
 
-                                <div class="col-12 col-md-5">
-                                    <select name="select" id="jenis_lahan" class="js-example-basic-single form-control" required>
-                                        <option value="all"> -- Pilih Semua Jenis Lahan Panen --</option>
+                                <div class="col-12 col-md-3">
+                                    <label for="">Pilih Kecamatan</label>
+                                    <select name="select" id="kelompok_tani" class="js-example-basic-single form-control" required>
+                                        <option value="all"> -- Pilih Kecamatan --</option>
                                         <?php 
-                                            $result = $crud->get("SELECT * FROM tb_jenis_lahan");
+                                            $result = $crud->get("SELECT * FROM tb_kecamatan");
                                             foreach ($result as $value) :
                                         ?>
-                                        <option value="<?= $value['id_jenis_lahan']?>"><?= $value['jenis_lahan']?></option>
+                                        <option value="<?= $value['id_kecamatan']?>"><?= $value['kecamatan']?></option>
                                         <?php endforeach ?>
                                     </select>
                                 </div>
 
-                                <div class="col-12 col-md-5">
+                                <div class="col-12 col-md-3">
+                                    <label for="">Pilih Kelompok Tani</label>
                                     <select name="select" id="kelompok_tani" class="js-example-basic-single form-control" required>
                                         <option value="all"> -- Pilih Semua Kelompok Tani --</option>
                                         <?php 
@@ -60,9 +64,22 @@
                                     </select>
                                 </div>
 
+                                <div class="col-12 col-md-3">
+                                    <label for="">Pilih Jenis Lahan Panen</label>
+                                    <select name="select" id="jenis_lahan" class="js-example-basic-single form-control" required>
+                                        <option value="all"> -- Pilih Semua Jenis Lahan Panen --</option>
+                                        <?php 
+                                            $result = $crud->get("SELECT * FROM tb_jenis_lahan");
+                                            foreach ($result as $value) :
+                                        ?>
+                                        <option value="<?= $value['id_jenis_lahan']?>"><?= $value['jenis_lahan']?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
 
-                                <div class="col-12 col-md-2">
-                                    <button id="terapkan" class="btn btn-primary"><i class="fa fa-plus"></i> Terapkan</button>
+                                <div class="col-12 col-md-3">
+                                    <br>
+                                    <button id="terapkan" class="btn btn-primary"><i class="fa fa-search"></i> Terapkan</button>
                                 </div>
 
                             </div>

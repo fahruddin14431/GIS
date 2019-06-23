@@ -55,10 +55,14 @@ if (empty($_SESSION['sess_user'])) {
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#"> <i class="menu-icon fa fa-user"></i><b> User : <?= strtoupper($_SESSION['sess_user']['sess_peran']) ?> </b></a>
+                    </li>
                     <li class='<?= $page=="view_dashbord"?"active":"" ?>' >
                         <a href="?p=view_dashbord"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
 
+                    <?php if($_SESSION['sess_user']['sess_peran']=="admin"): ?>
                     <h3 class="menu-title">Master</h3><!-- /.menu-title -->
                     <li class='<?= $page=="view_kecamatan"?"active":"" ?>' >
                         <a href="?p=view_kecamatan"> <i class="menu-icon fa fa-map-marker"></i>Kecamatan </a>
@@ -66,12 +70,14 @@ if (empty($_SESSION['sess_user'])) {
                     <li class='<?= $page=="view_jenis_lahan"?"active":"" ?>' >
                         <a href="?p=view_jenis_lahan"> <i class="menu-icon fa fa-tags"></i>Jenis Lahan Panen </a>
                     </li>
-                    
+                    <?php endif ?>
 
                     <h3 class="menu-title">Transaksi</h3><!-- /.menu-title -->
+                    <?php if($_SESSION['sess_user']['sess_peran']=="admin"): ?>
                     <li class='<?= $page=="view_kelompok_tani"?"active":"" ?>' >
                         <a href="?p=view_kelompok_tani"> <i class="menu-icon fa fa-users"></i>Kelompok Tani </a>
                     </li>
+                    <?php endif ?>
                     <li class='<?= $page=="view_pemetaan"?"active":"" ?>' >
                         <a href="?p=view_pemetaan"> <i class="menu-icon fa fa-map-o"></i>Hasil Panen Dan Pemetaan </a>
                     </li>
