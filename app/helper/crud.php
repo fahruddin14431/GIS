@@ -86,5 +86,9 @@ class Crud {
 		return move_uploaded_file($tmpname, $target)?$target:"";
 	}
 
+	public function getCount($table){
+		return $this->get("SELECT COUNT(*) as total FROM $table")[0]['total'];		
+	}
+
 }
 ?>

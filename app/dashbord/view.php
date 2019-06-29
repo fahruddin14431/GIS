@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="h4 mb-0 text-light">
-                            <span class="count">20</span>
+                            <span class="count"><?= $crud->getCount("tb_kecamatan")?></span>
                         </div>
                         <small class="text-uppercase font-weight-bold text-light">Total Kecamatan</small>
                         <div class="progress progress-xs mt-3 mb-0 bg-light" style="width: 40%; height: 5px;"></div>
@@ -42,9 +42,9 @@
                             <i class="fa fa-tags text-light"></i>
                         </div>
                         <div class="h4 mb-0 text-light">
-                            <span class="count">5</span>
+                            <span class="count"><?= $crud->getCount("tb_jenis_lahan")?></span>
                         </div>
-                        <small class="text-uppercase font-weight-bold text-light">Total Jenis</small>
+                        <small class="text-uppercase font-weight-bold text-light">Total Jenis Lahan Panen</small>
                         <div class="progress progress-xs mt-3 mb-0 bg-light" style="width: 40%; height: 5px;"></div>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                             <i class="fa fa-users text-light"></i>
                         </div>
                         <div class="h4 mb-0 text-light">
-                            <span class="count">10</span>
+                            <span class="count"><?= $crud->getCount("tb_kelompok_tani")?></span>
                         </div>
                         <small class="text-light text-uppercase font-weight-bold">Total Kelompok Tani</small>
                         <div class="progress progress-xs mt-3 mb-0 bg-light" style="width: 40%; height: 5px;"></div>
@@ -68,9 +68,9 @@
                             <i class="fa fa-map-o"></i>
                         </div>
                         <div class="h4 mb-0 text-light">
-                            <span class="count">28</span>
+                            <span class="count"><?= $crud->getCount("tb_pemetaan")?></span>
                         </div>
-                        <small class="text-uppercase font-weight-bold text-light">Total Pemetaan</small>
+                        <small class="text-uppercase font-weight-bold text-light">Total Hasil Panen Dan Pemetaan</small>
                         <div class="progress progress-xs mt-3 mb-0 bg-light" style="width: 40%; height: 5px;"></div>
                     </div>
                 </div>
