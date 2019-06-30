@@ -36,20 +36,27 @@
                         <form class="form-horizontal">
                             <div class="row form-group">                                
 
-                                <div class="col-12 col-md-4">
-                                    <label for="">Kelompok Tani</label>
-                                    <select name="select" id="kelompok_tani" class="js-example-basic-single form-control" required>
-                                        <option value=""> -- Pilih Kelompok Tani --</option>
+                            <div class="col-12 col-md-3">
+                                    <label for="">Pilih Kecamatan</label>
+                                    <select name="select" id="kecamatan" class="js-example-basic-single form-control" required>
+                                        <option value="all"> -- Pilih Kecamatan --</option>
                                         <?php 
-                                            $result = $crud->get("SELECT * FROM tb_kelompok_tani");
+                                            $result = $crud->get("SELECT * FROM tb_kecamatan");
                                             foreach ($result as $value) :
                                         ?>
-                                        <option value="<?= $value['id_kelompok_tani']?>"><?= $value['kelompok_tani']?></option>
+                                        <option value="<?= $value['id_kecamatan']?>"><?= $value['kecamatan']?></option>
                                         <?php endforeach ?>
                                     </select>
                                 </div>
 
-                                <div class="col-12 col-md-4">
+                                <div class="col-12 col-md-3">
+                                    <label for="">Pilih Kelompok Tani</label>
+                                    <select name="select" id="kelompok_tani" class="js-example-basic-single form-control" required>
+                                        <option value=""> -- Pilih Kelompok Tani --</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-3">
                                     <label for="">Jenis Lahan Panen</label>
                                     <select name="select" id="jenis_lahan" class="js-example-basic-single form-control" required>
                                         <option value=""> -- Pilih Jenis Lahan Panen --</option>
@@ -62,7 +69,7 @@
                                     </select>
                                 </div>                                
 
-                                <div class="col-12 col-md-4">                                    
+                                <div class="col-12 col-md-3">                                    
                                     <label for="">Total Produksi (Ton)</label>
                                     <input type="number" id="total_produksi" name="total_produksi" placeholder="Total Produksi (Ton)" class="form-control" required>
                                 </div>
@@ -163,13 +170,14 @@ function initMap() {
 
     $("#save").click(function(){
 
+        let id_kecamatan     = document.getElementById("kecamatan").value
         let id_jenis_lahan   = document.getElementById("jenis_lahan").value
         let id_kelompok_tani = document.getElementById("kelompok_tani").value
         let total_produksi   = document.getElementById("total_produksi").value        
         let lat_lng          = json_poly
         console.log(total_produksi);
         
-        if(id_jenis_lahan == "" || id_kelompok_tani == "" || typeof(lat_lng) == "undefined" || total_produksi == ""){
+        if(id_kecamatan == "" || id_jenis_lahan == "" || id_kelompok_tani == "" || typeof(lat_lng) == "undefined" || total_produksi == ""){
             
             swal({
                 title: "Pesan",
@@ -229,5 +237,12 @@ function initMap() {
         json_poly = "";
         initMap();
     });
+
+    $("#kecamatan").change(function(){
+    let id_kecamatan = $(this).val()
+    $.post("t_pemetaan/get_kelompok_tani.php", {id_kecamatan : id_kecamatan}, function(data, status){
+        $("#kelompok_tani").html(data)
+    })
+})
 // })
 </script>

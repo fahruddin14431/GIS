@@ -29,7 +29,7 @@
             <div class="col-lg-12" >
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Pemetaan</strong>
+                        <strong class="card-title">Hasil Panen Dan Pemetaan</strong>
                         <?php if($_SESSION['sess_user']['sess_peran']=="admin"): ?>
                         <a href="?p=add_pemetaan" class="btn btn-success"><i class="fa fa-plus"></i> Tambah</a>
                         <?php endif ?>
@@ -92,35 +92,38 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1JuL6Rq5rIp65eOde2mBngeVlLr8lqEg&libraries=drawing&callback=initMap"></script>
 <script>
 initMap();
-var map, polyline, marker, i, areas;
+var map, polyline, marker, i;
 var infowindow = new google.maps.InfoWindow();
 function initMap() {    
 
     var mapOptions = {
-        zoom: 13,
+        zoom: 9,
         center: new google.maps.LatLng(-9.429470, 119.237701),
         mapTypeId: google.maps.MapTypeId.terrain
     };
 
-    map = new google.maps.Map(document.getElementById('map'),mapOptions);
-   getAllPeta()
+    map = new google.maps.Map(document.getElementById('map'),mapOptions);    
+    // getAllPeta()
 }
 
 // var areas
+let area, color, k_tani, kecamatan, j_lahan, total_produksi, areas, res = ""
 function getAllPeta(kecamatan ="all", lahan="all", kelompok_tani="all"){
-    let param = {id_kecamatan : kecamatan, id_jenis_lahan : lahan, id_kelompok_tani : kelompok_tani};   
-    
+
+    let param = {id_kecamatan : kecamatan, id_jenis_lahan : lahan, id_kelompok_tani : kelompok_tani};       
     $.post("t_pemetaan/get_all_peta.php",param, function(data, status){    
-        let res = JSON.parse(data)
-        $.each(res, function(i,items) {             
-            let area            = JSON.parse(res[i].lat_lng)
-            let color           = res[i].warna 
-            let k_tani          = res[i].kelompok_tani
-            let kecamatan       = res[i].kecamatan
-            let j_lahan         = res[i].jenis_lahan
-            let total_produksi  = res[i].total_produksi+" Ton"
+    
+        res = JSON.parse(data)        
+        $.each(res, function(i,items) {      
+            area            = JSON.parse(res[i].lat_lng)
+            color           = res[i].warna 
+            k_tani          = res[i].kelompok_tani
+            kecamatan       = res[i].kecamatan
+            j_lahan         = res[i].jenis_lahan
+            total_produksi  = res[i].total_produksi+" Ton"
 
             // Construct the polygon.
+            areas = null
             areas = new google.maps.Polygon({
                 paths: area,
                 strokeColor: color,
@@ -128,13 +131,10 @@ function getAllPeta(kecamatan ="all", lahan="all", kelompok_tani="all"){
                 strokeWeight: 2,
                 fillColor: color,
                 fillOpacity: 0.35,
-            })            
-            areas.setMap(map)
+            })       
             
-            
-            google.maps.event.addListener(areas, 'click', function(e) {              
-                // alert(kecamatan +" "+ k_tani+" "+j_lahan)
-                
+            //pop up
+            google.maps.event.addListener(areas, 'click', function(e) {                             
                 infowindow.setContent(
                     `<div>
                         <table>
@@ -164,26 +164,29 @@ function getAllPeta(kecamatan ="all", lahan="all", kelompok_tani="all"){
                 infowindow.setPosition(e.latLng);
                 infowindow.open(map);
             });
-        })        
+        })    
+        
+        areas.setMap(map)   
     }) 
     
 }
 
 $("#terapkan").click(function(e){
     e.preventDefault()    
-    // areas.setMap(null)
-    // let id_kecamatan     = document.getElementById("kecamatan").value
+    let id_kecamatan     = document.getElementById("kecamatan").value
     let id_jenis_lahan   = document.getElementById("jenis_lahan").value
     let id_kelompok_tani = document.getElementById("kelompok_tani").value
 
-    if(id_jenis_lahan == "" || id_kelompok_tani == ""){
+    if(id_kecamatan == "" ||id_jenis_lahan == "" || id_kelompok_tani == ""){
         swal({
             title: "Pesan",
             text: "Lengkapi Form",
             icon: "warning",
-        })
+        })        
     }else{
-        getAllPeta(id_jenis_lahan, id_kelompok_tani)         
+        getAllPeta(id_kecamatan, id_jenis_lahan, id_kelompok_tani)                   
+        // console.log(areas);
+        // console.log(map);
     }
 })
 
