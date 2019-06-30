@@ -30,6 +30,7 @@
                 <div class="card">
                     <div class="card-header">
                         <strong class="card-title">Hasil Panen Dan Pemetaan</strong>
+                        <button id="clear">clear</button>
                         <?php if($_SESSION['sess_user']['sess_peran']=="admin"): ?>
                         <a href="?p=add_pemetaan" class="btn btn-success"><i class="fa fa-plus"></i> Tambah</a>
                         <?php endif ?>
@@ -122,8 +123,7 @@ function getAllPeta(kecamatan ="all", lahan="all", kelompok_tani="all"){
             j_lahan         = res[i].jenis_lahan
             total_produksi  = res[i].total_produksi+" Ton"
 
-            // Construct the polygon.
-            areas = null
+            // Construct the polygon.            
             areas = new google.maps.Polygon({
                 paths: area,
                 strokeColor: color,
@@ -131,7 +131,10 @@ function getAllPeta(kecamatan ="all", lahan="all", kelompok_tani="all"){
                 strokeWeight: 2,
                 fillColor: color,
                 fillOpacity: 0.35,
-            })       
+            })      
+
+            areas.setMap(null) 
+            areas.setMap(map)   
             
             //pop up
             google.maps.event.addListener(areas, 'click', function(e) {                             
@@ -165,8 +168,9 @@ function getAllPeta(kecamatan ="all", lahan="all", kelompok_tani="all"){
                 infowindow.open(map);
             });
         })    
+        // console.log(res)
+        // console.log(map)
         
-        areas.setMap(map)   
     }) 
     
 }
@@ -185,6 +189,7 @@ $("#terapkan").click(function(e){
         })        
     }else{
         getAllPeta(id_kecamatan, id_jenis_lahan, id_kelompok_tani)                   
+        areas.setMap(null)
         // console.log(areas);
         // console.log(map);
     }
@@ -196,4 +201,9 @@ $("#kecamatan").change(function(){
         $("#kelompok_tani").html(data)
     })
 })
+
+$("#clear").click(function(){    
+    areas.setMap(null)
+})
+
 </script>
