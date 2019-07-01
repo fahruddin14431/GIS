@@ -44,7 +44,7 @@
 
                             <div class="form-group">
                                 <label class="form-control-label">Warna</label>
-                                <select name="warna" required class="form-control">
+                                <!-- <select name="warna" required class="form-control">
                                     <option value=""> -- Pilih Warna --</option>
                                     <?php
                                          $arr_warna = array(
@@ -56,7 +56,8 @@
                                     ?>
                                     <option value="<?= $key ?>"> <?= $value ?> </option>
                                     <?php endforeach ?>
-                                </select>
+                                </select> -->
+                                <input type="color" name="warna">
                             </div>
                             
                         </div>

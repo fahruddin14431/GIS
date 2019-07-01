@@ -2,7 +2,7 @@
 error_reporting();
 session_start();
 include "helper/auth.php";
-$auth = new Auth();	
+$auth = new Auth();
 $crud = new Crud();
 
 ob_start();
@@ -81,7 +81,7 @@ if (empty($_SESSION['sess_user'])) {
                     <li class='<?= $page=="view_pemetaan"?"active":"" ?>' >
                         <a href="?p=view_pemetaan"> <i class="menu-icon fa fa-map-o"></i>Hasil Panen Dan Pemetaan </a>
                     </li>
-                    
+
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -113,7 +113,7 @@ if (empty($_SESSION['sess_user'])) {
                                 <i class="fa fa-bell"></i>
                                 <span class="count bg-danger">5</span>
                             </button>
-                           
+
                         </div>
 
                         <div class="dropdown for-message">
@@ -123,7 +123,7 @@ if (empty($_SESSION['sess_user'])) {
                                 <i class="ti-email"></i>
                                 <span class="count bg-primary">9</span>
                             </button>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -139,11 +139,11 @@ if (empty($_SESSION['sess_user'])) {
         <!-- Header-->
         <!-- <hr> -->
         <p style="margin-top:-12px"></p>
-        
+
         <?php
 
         if($page){
-            
+
             if($page == "view_dashbord"){
                 include "dashbord/view.php";
 
@@ -156,8 +156,8 @@ if (empty($_SESSION['sess_user'])) {
             }elseif ($page == "delete_kecamatan") {
                 include "m_kecamatan/delete.php";
             }
-            
-            
+
+
             elseif ($page == "view_jenis_lahan") {
                 include "m_jenis_lahan/view.php";
             }elseif ($page == "add_jenis_lahan") {
@@ -167,8 +167,8 @@ if (empty($_SESSION['sess_user'])) {
             }elseif ($page == "delete_jenis_lahan") {
                 include "m_jenis_lahan/delete.php";
             }
-            
-            
+
+
             elseif ($page == "view_kelompok_tani") {
                 include "m_kelompok_tani/view.php";
             }elseif ($page == "add_kelompok_tani") {
@@ -178,20 +178,20 @@ if (empty($_SESSION['sess_user'])) {
             }elseif ($page == "delete_kelompok_tani") {
                 include "m_kelompok_tani/delete.php";
             }
-            
+
             elseif ($page == "view_pemetaan") {
                 include "t_pemetaan/view.php";
             }elseif ($page == "add_pemetaan") {
                 include "t_pemetaan/add_form.php";
             }
-            
 
-            
+
+
 
         }else{
             include "dashbord/view.php";
         }
-        
+
         ?>
         </div>
 
@@ -199,7 +199,7 @@ if (empty($_SESSION['sess_user'])) {
 
     <!-- Right Panel -->
 
-    
+
     <script src="../vendors/popper.js/dist/umd/popper.min.js"></script>
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../assets/js/main.js"></script>
@@ -216,7 +216,7 @@ if (empty($_SESSION['sess_user'])) {
     <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
     <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
     <script src="../vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-    <script src="../assets/js/init-scripts/data-table/datatables-init.js"></script>  
+    <script src="../assets/js/init-scripts/data-table/datatables-init.js"></script>
 
 </body>
 

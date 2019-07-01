@@ -51,7 +51,7 @@ $result = $crud->get("SELECT * FROM tb_jenis_lahan WHERE id_jenis_lahan = '$id_j
 
                             <div class="form-group">
                                 <label class="form-control-label">Warna</label>
-                                <select name="warna" required class="form-control">
+                                <!-- <select name="warna" required class="form-control">
                                     <option value=""> -- Pilih Warna --</option>
                                     <?php
                                          $arr_warna = array(
@@ -63,8 +63,9 @@ $result = $crud->get("SELECT * FROM tb_jenis_lahan WHERE id_jenis_lahan = '$id_j
                                     ?>
                                     <option <?= $result['warna']==$key?"selected":""?> value="<?= $key ?>"> <?= $value ?> </option>
                                     <?php endforeach ?>
+                                </select> -->
 
-                                </select>
+                                <input type="color" name="warna" value="<?= $result['warna']?>">
                             
                         </div>
                         <div class="card-footer">

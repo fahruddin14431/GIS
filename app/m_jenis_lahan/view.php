@@ -48,18 +48,15 @@
                                     <td><?= $no++ ?></td>
                                     <td><?= $value['jenis_lahan'] ?></td>
                                     <td><?= $value['luas_tanah'] ?></td>
-                                    <td><?php 
-                                    
-                                            $warna = $value['warna'] ;
-                                            if($warna=="red"){
-                                                echo "Merah";
-                                            }else if($warna =="yellow"){
-                                                echo "Kuning";
-                                            }else if($warna =="green"){
-                                                echo "Hijau";
-                                            }
-                                    ?>
-                                    </td>
+                                    <td><span style="margin: 10px;
+                                        height: calc(100% - 40px);;
+                                        width: calc(100% - 40px);
+                                        background-color: <?= $value['warna'] ?>;
+                                        border: 1px solid black;
+                                        font-size: 2.5em;
+                                        font-weight: bold;
+                                        color: white;
+                                        text-align: center;"><?= $value['warna'] ?></span></td>
                                     <td>
                                         <a href="?p=edit_jenis_lahan&id_jenis_lahan=<?= $value['id_jenis_lahan']?>" class="btn btn-warning text-white"><i class="fa fa-pencil"></i> Ubah</a>
                                         <a href="?p=delete_jenis_lahan&id_jenis_lahan=<?= $value['id_jenis_lahan']?>" onClick="return confirm('Data Akan Dihapus !')"  class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</a>
